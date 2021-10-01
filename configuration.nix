@@ -7,12 +7,6 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      <nixos-hardware/common/cpu/amd>
-      <nixos-hardware/common/gpu/amd>
-      <nixos-hardware/common/pc/laptop>
-      <nixos-hardware/common/pc/laptop/acpi_call.nix>
-      <nixos-hardware/common/pc/ssd>
-      <home-manager/nixos>
       ./hardware-configuration.nix
     ];
 
@@ -113,10 +107,7 @@
      home = "/home/codgi";
      shell = pkgs.zsh;
   };
-  home-manager.users.codgi = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie ];
-    programs.bash.enable = true;
-  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -145,6 +136,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryFlavor = "gnome3";
   };
   programs.sway = {
     enable = true;
@@ -165,9 +157,10 @@
         theme = "half-life";
     };
   };
+  programs.xwayland.enable = true;
 
   environment.variables = {
-    "QT_QPA_PLATFORM" = "wayland";
+    "QT_QPA_PLATFORM" = "wayland;xcb";
     "GDK_BACKEND" = "wayland";
     "MOZ_ENABLE_WAYLAND" = "1";
   };

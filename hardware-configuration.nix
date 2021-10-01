@@ -21,8 +21,7 @@
   hardware.enableRedistributableFirmware = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
   
-  # OpenCL & Vulkan
-  
+  # OpenCL & Vulkan 
   hardware.opengl.extraPackages = with pkgs; [
      rocm-opencl-icd rocm-opencl-runtime
      amdvlk
